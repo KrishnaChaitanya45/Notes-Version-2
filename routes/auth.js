@@ -1,0 +1,11 @@
+const express = require('express');
+const {loginPost,registerPost, verifyToken, editProfileGet, editProfileUpdate,forgotPasswordHandler,logout,getResetPassoword,postResetPassword} = require('../controllers/auth');
+const router = express.Router();
+router.route('/login').post(loginPost);
+router.route('/forgot-password').post(forgotPasswordHandler);
+router.route('/reset-password/:id/:token').get(getResetPassoword);
+router.route('/reset-password').post(postResetPassword);
+router.route('/users/:id').get(editProfileGet).patch(editProfileUpdate);
+router.route('/register').post(registerPost);
+router.route('/token').post(verifyToken).get(logout);
+module.exports = router;
