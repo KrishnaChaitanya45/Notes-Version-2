@@ -26,8 +26,13 @@ const storage = multer.diskStorage({
 app.use(cookieParser());
 app.use(multer({ storage: storage }).single('image'));
 app.use(express.json());
-app.use(express.static('./public')); 
-app.use('/uploads',express.static('./uploads'));
+app.use("/public", express.static(path.resolve(__dirname, 'public')));
+
+app.get("/",function (req, res) {
+  res.sendFile(__dirname + "/public/index.html")
+});
+
+app.use('/uploads',express.static(path.resolve(__dirname, 'uploads')));
 app.use('/api/v1/auth',authRoute);
 app.use('/api/v1/tasks',taskRoute);
 const start= async()=>{
